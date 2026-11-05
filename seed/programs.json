@@ -1,0 +1,114 @@
+{
+  "_note": "공고·기사로 확인한 내용만 넣었다. 금액·자격은 해마다 바뀌므로 신청 전 원문을 다시 확인한다.",
+  "checkedAt": "2026-11-05",
+  "programs": [
+    {
+      "id": "young-farmer-settlement",
+      "name": "청년농업인 영농정착지원사업 (청년후계농)",
+      "operator": "농림축산식품부",
+      "conditions": [
+        {
+          "key": "age",
+          "text": "만 18세 이상 ~ 만 40세 미만",
+          "rule": {
+            "birthYearMin": null,
+            "ageMin": 18,
+            "ageMaxExclusive": 40
+          }
+        },
+        {
+          "key": "independentYears",
+          "text": "독립 영농경력 3년 이하 (예정자 포함)",
+          "rule": {
+            "independentFarmingYearsMax": 3
+          }
+        },
+        {
+          "key": "income",
+          "text": "소득·재산 일정 수준 이하",
+          "rule": null,
+          "needsCheck": true
+        }
+      ],
+      "benefit": "영농정착지원금 월 최대 110만원, 최장 3년 (2026년 사업 기준)",
+      "documents": [
+        "신청서 (농림사업정보시스템)",
+        "영농 계획",
+        "영농 경력 증빙 (경영체 등록 등)",
+        "소득·재산 확인 자료"
+      ],
+      "deadline": {
+        "text": "2026년 사업 1차 모집: 2025-11-05 ~ 2025-12-11. 2027년 사업 일정은 공고 확인 필요",
+        "needsCheck": true
+      },
+      "applyAt": "농림사업정보시스템 (지침은 탄탄대로)",
+      "sources": [
+        {
+          "title": "아주경제 2025-11-04 기사",
+          "url": "https://www.ajunews.com/view/20251104101311593"
+        }
+      ],
+      "usesLogs": "영농 경력·작업 기록을 영농 계획 초안에 활용"
+    },
+    {
+      "id": "cheongdo-return-center",
+      "name": "청도군 귀농귀촌종합지원센터 상담·교육·멘토링",
+      "operator": "청도군",
+      "conditions": [
+        {
+          "key": "target",
+          "text": "도시민 및 예비 귀농·귀촌인, 귀농 초기 농업인",
+          "rule": null,
+          "needsCheck": true
+        }
+      ],
+      "benefit": "초기 상담, 전문 교육, 선배 귀농인 현장 견학, 일대일 멘토링",
+      "documents": [
+        "상담 신청 (센터 문의)"
+      ],
+      "deadline": {
+        "text": "상시 여부 확인 필요",
+        "needsCheck": true
+      },
+      "applyAt": "청도군귀농귀촌종합지원센터",
+      "sources": [
+        {
+          "title": "아주경제 2026-06-19 기사",
+          "url": "https://www.ajunews.com/view/20260619143156049"
+        }
+      ],
+      "usesLogs": "작물·면적·고민을 상담 메모로 정리"
+    },
+    {
+      "id": "cheongdo-rural-stay",
+      "name": "청도군 농촌에서 살아보기",
+      "operator": "청도군 (운영: 청도군귀농귀촌연합회)",
+      "conditions": [
+        {
+          "key": "target",
+          "text": "귀농·귀촌을 희망하는 도시민 (이미 귀농한 경우 해당하지 않을 수 있음)",
+          "rule": {
+            "farmingYearsMax": 0
+          },
+          "needsCheck": true
+        }
+      ],
+      "benefit": "약 한 달간 영농체험, 농촌생활 교육, 지역문화 탐방, 주민 교류 (2026년 1기: 5/18~6/17)",
+      "documents": [
+        "참가 신청서"
+      ],
+      "deadline": {
+        "text": "하반기 2기 운영 예정 (일정 확인 필요)",
+        "needsCheck": true
+      },
+      "applyAt": "청도군",
+      "sources": [
+        {
+          "title": "아주경제 2026-06-17 기사",
+          "url": "https://www.ajunews.com/view/20260617150121307"
+        }
+      ],
+      "usesLogs": "해당 없음 (예비 귀농인 대상)"
+    }
+  ]
+}

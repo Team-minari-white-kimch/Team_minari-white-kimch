@@ -1,0 +1,36 @@
+{
+  "_note": "시연용 가상 인물. 실제 개인정보 아님.",
+  "id": "demo-farmer",
+  "nickname": "청도 새내기 농부",
+  "ageGroup": "30대 초반 (만 32세)",
+  "birthYear": 1994,
+  "region": "경북 청도군 화양읍",
+  "farmingYears": 2,
+  "independentFarmingYears": 2,
+  "fields": [
+    {
+      "id": "field-1",
+      "name": "1번 밭",
+      "crop": "감(반시)",
+      "areaHa": 0.3
+    },
+    {
+      "id": "field-2",
+      "name": "2번 밭",
+      "crop": "감(반시)",
+      "areaHa": 0.2
+    },
+    {
+      "id": "field-3",
+      "name": "3번 밭",
+      "crop": "미나리",
+      "areaHa": 0.05
+    }
+  ],
+  "totalAreaHa": 0.55,
+  "interests": [
+    "지원사업",
+    "병해충 관리",
+    "출하 시기"
+  ]
+}

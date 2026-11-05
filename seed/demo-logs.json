@@ -1,0 +1,29 @@
+{
+  "_note": "시연용 예시 영농일지. 날짜는 시연 당일 기준으로 바꿔 쓴다.",
+  "logs": [
+    {
+      "date": "2026-11-02",
+      "fieldId": "field-1",
+      "work": "반시 수확",
+      "hours": 5,
+      "pesticide": false,
+      "note": "수확량 약 20상자 (예시)"
+    },
+    {
+      "date": "2026-11-03",
+      "fieldId": "field-2",
+      "work": "반시 수확, 선별",
+      "hours": 6,
+      "pesticide": false,
+      "note": ""
+    },
+    {
+      "date": "2026-11-04",
+      "fieldId": "field-3",
+      "work": "미나리 물 관리",
+      "hours": 1.5,
+      "pesticide": false,
+      "note": "수위 확인"
+    }
+  ]
+}

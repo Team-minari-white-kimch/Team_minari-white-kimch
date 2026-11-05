@@ -1,0 +1,65 @@
+{
+  "_note": "시연용 가상 계절근로자. 여권번호·외국인등록번호·연락처는 받지 않는다.",
+  "farmId": "demo-farmer",
+  "workers": [
+    {
+      "id": "w1",
+      "displayName": "근로자 A",
+      "country": "필리핀",
+      "language": [
+        "tl",
+        "en"
+      ],
+      "stayStart": "2026-08-20",
+      "stayEnd": "2026-12-19",
+      "housing": "농가 제공 숙소",
+      "insurance": {
+        "wageGuarantee": "확인 필요",
+        "farmSafety": "확인 필요",
+        "injury": "확인 필요"
+      }
+    },
+    {
+      "id": "w2",
+      "displayName": "근로자 B",
+      "country": "필리핀",
+      "language": [
+        "tl",
+        "en"
+      ],
+      "stayStart": "2026-08-20",
+      "stayEnd": "2026-12-19",
+      "housing": "농가 제공 숙소",
+      "insurance": {
+        "wageGuarantee": "확인 필요",
+        "farmSafety": "확인 필요",
+        "injury": "확인 필요"
+      }
+    }
+  ],
+  "workRecords": [
+    {
+      "date": "2026-11-03",
+      "workerIds": [
+        "w1",
+        "w2"
+      ],
+      "fieldId": "field-2",
+      "work": "반시 수확·선별",
+      "start": "08:00",
+      "end": "17:00",
+      "breakMin": 60
+    },
+    {
+      "date": "2026-11-04",
+      "workerIds": [
+        "w1"
+      ],
+      "fieldId": "field-1",
+      "work": "반시 수확",
+      "start": "08:00",
+      "end": "16:00",
+      "breakMin": 60
+    }
+  ]
+}

@@ -1,0 +1,221 @@
+{
+ "pests": [
+  {
+   "id": "anthracnose",
+   "crop": "감(반시)",
+   "name": "탄저병",
+   "kind": "병",
+   "keys": [
+    "fruit_black_sunken",
+    "pink_spore",
+    "shoot_black"
+   ],
+   "wetBoost": true,
+   "feature": "열매·새 가지에 검고 움푹한 둥근 반점이 생기고, 습하면 분홍빛 포자 덩어리가 보입니다.",
+   "care": [
+    "병든 열매·가지를 따서 밭 밖에서 처리하세요.",
+    "가지가 빽빽하면 솎아 통풍을 좋게 하세요.",
+    "비가 이어진 뒤 확산 여부를 2~3일 간격으로 확인하세요."
+   ]
+  },
+  {
+   "id": "circular_leaf_spot",
+   "crop": "감(반시)",
+   "name": "둥근무늬낙엽병",
+   "kind": "병",
+   "keys": [
+    "leaf_round_brown",
+    "dark_margin",
+    "early_leaf_drop"
+   ],
+   "feature": "잎에 둥근 갈색 반점이 생기고 가장자리가 진해지며, 잎이 일찍 떨어집니다.",
+   "care": [
+    "떨어진 잎을 모아 처리해 내년 전염원을 줄이세요.",
+    "배수가 잘 되게 하고 나무 세력을 관리하세요."
+   ]
+  },
+  {
+   "id": "angular_leaf_spot",
+   "crop": "감(반시)",
+   "name": "모무늬낙엽병",
+   "kind": "병",
+   "keys": [
+    "leaf_angular",
+    "early_leaf_drop"
+   ],
+   "feature": "잎맥에 둘러싸인 각진 갈색 반점이 생기고 잎이 떨어집니다.",
+   "care": [
+    "떨어진 잎을 모아 처리하세요.",
+    "통풍이 잘 되게 가지를 정리하세요."
+   ]
+  },
+  {
+   "id": "powdery_mildew",
+   "crop": "감(반시)",
+   "name": "흰가루병",
+   "kind": "병",
+   "keys": [
+    "white_powder"
+   ],
+   "feature": "잎 뒷면에 흰 가루 같은 곰팡이가 생깁니다.",
+   "care": [
+    "심한 잎은 제거하고 통풍을 좋게 하세요.",
+    "질소 비료를 지나치게 주지 않았는지 기록을 확인하세요."
+   ]
+  },
+  {
+   "id": "fruit_moth",
+   "crop": "감(반시)",
+   "name": "감꼭지나방",
+   "kind": "해충",
+   "keys": [
+    "calyx_hole",
+    "fruit_drop_early"
+   ],
+   "feature": "애벌레가 꼭지 부근을 파고들어 구멍과 똥이 보이고, 열매가 익기 전에 떨어집니다.",
+   "care": [
+    "떨어진 열매와 피해 열매를 모아 처리하세요.",
+    "겨울에 거친 껍질을 긁어 월동 애벌레를 줄이는 방법이 알려져 있습니다 (도감 확인)."
+   ]
+  },
+  {
+   "id": "mealybug",
+   "crop": "감(반시)",
+   "name": "깍지벌레류",
+   "kind": "해충",
+   "keys": [
+    "white_cottony",
+    "sooty"
+   ],
+   "feature": "가지·열매에 흰 솜이나 껍질 같은 벌레가 붙고, 배설물 때문에 그을음이 생깁니다.",
+   "care": [
+    "피해 가지를 정리하고, 겨울 전정 때 붙어 있는 가지를 제거하세요.",
+    "발생 범위를 사진으로 기록해 두세요."
+   ]
+  },
+  {
+   "id": "aphid",
+   "crop": "미나리",
+   "name": "진딧물",
+   "kind": "해충",
+   "keys": [
+    "small_insects",
+    "sticky",
+    "leaf_curl"
+   ],
+   "feature": "잎·줄기에 작은 벌레가 무리 지어 있고, 잎이 끈적이거나 오그라듭니다.",
+   "care": [
+    "발생한 포기 주변을 먼저 확인하고 범위를 기록하세요.",
+    "물 관리와 잡초 정리로 서식처를 줄이세요."
+   ]
+  },
+  {
+   "id": "rust",
+   "crop": "미나리",
+   "name": "녹병 의심",
+   "kind": "병",
+   "keys": [
+    "orange_pustule"
+   ],
+   "feature": "잎에 노랑·주황색 가루가 나오는 작은 돌기가 생깁니다.",
+   "care": [
+    "병든 잎을 걷어 내고, 확산 여부를 확인하세요.",
+    "도감에서 미나리 녹병 증상과 비교해 보세요."
+   ]
+  },
+  {
+   "id": "physio",
+   "crop": "미나리",
+   "name": "생리장해·물 관리 문제",
+   "kind": "환경",
+   "keys": [
+    "yellowing",
+    "rot_base"
+   ],
+   "feature": "병해충 없이 수온·수위·양분 문제로 잎이 누렇게 되거나 밑동이 무를 수 있습니다.",
+   "care": [
+    "수위와 물 흐름을 확인하세요.",
+    "고인 물이 썩지 않게 순환시키세요.",
+    "계속되면 농업기술센터에 문의하세요."
+   ]
+  }
+ ],
+ "symptoms": {
+  "감(반시)": [
+   {
+    "id": "fruit_black_sunken",
+    "label": "열매에 검고 움푹한 반점"
+   },
+   {
+    "id": "pink_spore",
+    "label": "반점 위에 분홍빛 가루·덩어리"
+   },
+   {
+    "id": "shoot_black",
+    "label": "새 가지가 검게 변함"
+   },
+   {
+    "id": "leaf_round_brown",
+    "label": "잎에 둥근 갈색 반점"
+   },
+   {
+    "id": "dark_margin",
+    "label": "반점 가장자리에 진한 테"
+   },
+   {
+    "id": "leaf_angular",
+    "label": "잎맥 사이 각진 갈색 반점"
+   },
+   {
+    "id": "early_leaf_drop",
+    "label": "잎이 일찍 많이 떨어짐"
+   },
+   {
+    "id": "white_powder",
+    "label": "잎 뒷면에 흰 가루"
+   },
+   {
+    "id": "calyx_hole",
+    "label": "꼭지 부근 구멍·벌레 똥"
+   },
+   {
+    "id": "fruit_drop_early",
+    "label": "익기 전 열매가 떨어짐"
+   },
+   {
+    "id": "white_cottony",
+    "label": "가지·열매에 흰 솜 같은 벌레"
+   },
+   {
+    "id": "sooty",
+    "label": "잎·열매가 검은 그을음처럼 더러워짐"
+   }
+  ],
+  "미나리": [
+   {
+    "id": "small_insects",
+    "label": "잎·줄기에 작은 벌레 무리"
+   },
+   {
+    "id": "sticky",
+    "label": "잎이 끈적거림"
+   },
+   {
+    "id": "leaf_curl",
+    "label": "잎이 오그라듦"
+   },
+   {
+    "id": "orange_pustule",
+    "label": "잎에 노랑·주황 가루 돌기"
+   },
+   {
+    "id": "yellowing",
+    "label": "잎 전체가 누렇게 변함"
+   },
+   {
+    "id": "rot_base",
+    "label": "밑동이 물러지고 냄새"
+   }
+  ]
+ }
+}

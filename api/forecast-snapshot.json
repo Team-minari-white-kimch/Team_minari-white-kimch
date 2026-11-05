@@ -1,0 +1,72 @@
+{
+  "_note": "실제 기상청 자료 기반 스냅샷. 앱은 기상청 단기예보 API를 실시간 호출하고, 실패할 때만 이 파일을 쓴다.",
+  "source": "snapshot",
+  "region": "경북 청도군",
+  "baseTime": "2026-11-05T07:00+09:00",
+  "sourceUrl": "https://www.newsinside.kr/news/articleView.html?idxno=5040808",
+  "sourceNote": "뉴스인사이드 2026-11-05 07:13 (기상청 자료 기반 자동 작성 기사)",
+  "today": {
+    "date": "2026-11-05",
+    "sky": "비",
+    "tempC": 10.4,
+    "humidityPct": 100,
+    "minC": 10,
+    "maxC": 15,
+    "windMs": 3.3,
+    "regionalRain": "대구·경북 5~20mm, 경상권 15~18시께 그침 (톱스타뉴스 2026-11-05)"
+  },
+  "days": [
+    {
+      "date": "2026-11-06",
+      "am": "구름 많음",
+      "amRainPct": 20,
+      "pm": "맑음",
+      "pmRainPct": 0,
+      "minC": 5,
+      "maxC": 13
+    },
+    {
+      "date": "2026-11-07",
+      "am": "맑음",
+      "amRainPct": 0,
+      "pm": "맑음",
+      "pmRainPct": 0,
+      "minC": -1,
+      "maxC": 12,
+      "warning": "경상권 내륙 영하권·서리 가능 (톱스타뉴스 2026-11-05)"
+    },
+    {
+      "date": "2026-11-08",
+      "am": "구름 많음",
+      "amRainPct": 20,
+      "pm": "흐림",
+      "pmRainPct": 30,
+      "minC": 0,
+      "maxC": 12
+    },
+    {
+      "date": "2026-11-09",
+      "am": "구름 많음",
+      "amRainPct": 20,
+      "pm": "맑음",
+      "pmRainPct": 10,
+      "minC": 6,
+      "maxC": 13
+    },
+    {
+      "date": "2026-11-10",
+      "am": "맑음",
+      "amRainPct": 10,
+      "pm": "맑음",
+      "pmRainPct": 10,
+      "minC": 2,
+      "maxC": 13
+    }
+  ],
+  "extraSources": [
+    {
+      "title": "톱스타뉴스 2026-11-05 오늘날씨",
+      "url": "https://www.topstarnews.net/news/articleView.html?idxno=16268644"
+    }
+  ]
+}

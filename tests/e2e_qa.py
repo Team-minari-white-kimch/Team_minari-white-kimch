@@ -86,6 +86,13 @@ async def main():
         ok(3, pg.url.endswith('#log'), '저장 후 기록 화면 이동')
         t = await pg.inner_text('#view'); ok(3, '증상 관찰' in t and '확산 여부' in t, '기록과 재확인 일정 생성')
 
+        # 3b 에이전트 응답이 오면 에이전트 결과로 표시
+        pga = await page(b, live='fail')
+        AG = {"top": [{"p": {"name": "탄저병", "kind": "병", "feature": "f", "care": ["c"]}, "conf": "중간", "ev": ["분홍 포자"]}], "dropped": [{"p": {"name": "둥근무늬낙엽병"}, "reason": "근거 부족"}], "hard": False, "source": "agent", "models": ["gpt-5", "claude-sonnet-4"]}
+        await pga.route('**/api/diagnose', lambda r: r.fulfill(status=200, content_type='application/json', body=json.dumps(AG)))
+        await go(pga, '#diagnose'); await pga.click('[data-sym=pink_spore]'); await pga.click('#runDx'); await pga.wait_for_selector('#saveDx', timeout=8000)
+        t = await pga.inner_text('#view'); ok(3, 'Copilot 에이전트' in t and '근거 부족' in t, '에이전트 결과·검증 사유 표시')
+
         # 4 아무것도 안 고르고 진단 / 흐린 사진
         pg4 = await page(b, live='fail'); await go(pg4, '#diagnose')
         await pg4.click('#runDx'); await pg4.wait_for_timeout(300)

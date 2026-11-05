@@ -399,6 +399,7 @@ function renderDxResult(r) {
       <a href="${PEST_LINKS.ncpms}" target="_blank" rel="noopener">국가농작물병해충관리시스템 도감 보기</a></div>`;
   return `
   <h2>의심 후보 <span class="tag ai">AI 추정</span></h2>
+  <p class="small muted" style="margin-top:-6px">${r.source === 'agent' ? `Copilot 에이전트: 진단 → 검증 (${esc((r.models || []).join(', '))})` : '에이전트 연결 전이라 앱 안의 규칙으로 정리했어요.'}</p>
   ${r.top.map((c) => `
     <div class="card cand ${c.conf === '높음' ? 'high' : c.conf === '중간' ? 'mid' : 'low'}">
       <div class="row"><h3 class="grow">${esc(c.p.name)} <span class="muted small">(${esc(c.p.kind)})</span></h3><span class="tag ${c.conf === '높음' ? 'danger' : c.conf === '중간' ? 'warn' : ''}">확신 ${c.conf}</span></div>
@@ -407,7 +408,7 @@ function renderDxResult(r) {
       <div class="small"><b>지금 할 관리</b><ul style="margin:4px 0;padding-left:18px">${c.p.care.map((e) => `<li>${esc(e)}</li>`).join('')}</ul></div>
       <div class="small"><a href="${PEST_LINKS.ncpms}" target="_blank" rel="noopener">도감에서 증상 비교</a> · <a href="${PEST_LINKS.pesticide}" target="_blank" rel="noopener">등록 약제 확인</a></div>
     </div>`).join('')}
-  ${r.dropped.length ? `<div class="card tight small"><b>검증에서 뺀 후보</b>: ${r.dropped.map((c) => esc(c.p.name)).join(', ')} — 고른 특징 중 일부만 설명해서 근거가 부족해요.</div>` : ''}
+  ${r.dropped.length ? `<div class="card tight small"><b>검증에서 뺀 후보</b>: ${r.dropped.map((c) => esc(c.p.name) + (c.reason ? ` (${esc(c.reason)})` : '')).join(', ')}${r.source === 'agent' ? '' : ' — 고른 특징 중 일부만 설명해서 근거가 부족해요.'}</div>` : ''}
   <div class="card tight">
     <label class="row small"><input type="checkbox" id="keepPhoto" ${dx.keepPhoto ? 'checked' : ''}> 사진도 기록에 저장 (위치 정보는 지우고 저장)</label>
     <button class="btn primary block" id="saveDx" style="margin-top:10px">확인했어요 — 영농 기록에 남기기</button>
@@ -428,12 +429,14 @@ function bindDiagnose(root) {
   };
   $('#runDx', root).onclick = async () => {
     if (!dx.picked.size && !dx.photo) { toast('사진을 올리거나 특징을 하나 이상 골라 주세요'); return; }
-    dx.running = true; $('#runDx', root).disabled = true;
+    dx.running = true; $('#runDx', root).disabled = true; $('#runDx', root).textContent = '확인하는 중…';
     const steps = ['사진 특징 정리', '도감 비교 + 날씨·이번 달 발생정보 확인 (동시)', '의심 후보 정리', '검증 — 근거 부족 후보 제외'];
     const box = $('#dxSteps', root);
     const draw = (k) => box.innerHTML = `<div class="card tight"><div class="steps">${steps.map((s, i) => `<div class="step ${i < k ? 'done' : i === k ? 'run' : ''}"><span class="dot"></span>${s}</div>`).join('')}</div></div>`;
-    for (let k = 0; k < steps.length; k++) { draw(k); await new Promise((r) => setTimeout(r, 450)); }
-    const api = await tryApi('/api/diagnose', { crop: dx.crop, symptoms: [...dx.picked], stats: dx.stats, image: dx.photo });
+    const apiP = tryApi('/api/diagnose', { crop: dx.crop, symptoms: [...dx.picked], stats: dx.stats }, 95000);
+    for (let k = 0; k < steps.length - 1; k++) { draw(k); await new Promise((r) => setTimeout(r, 450)); }
+    draw(steps.length - 1);
+    const api = await apiP;
     dx.result = api && api.top ? api : localDiagnose();
     dx.running = false; render();
   };
@@ -598,7 +601,7 @@ function viewCommunity() {
     <label class="f" for="askIn" style="margin-top:0">선배 노하우에게 물어보기</label>
     <div class="row"><input type="text" id="askIn" maxlength="120" value="${esc(cm.ask)}" placeholder="예: 서리 오기 전에 뭘 해야 하나요?"><button class="btn primary" id="askBtn">찾기</button></div>
     ${ar ? (ar.length ? `<div class="summary"><b>관련 노하우 ${ar.length}개</b> <span class="tag ai">AI 정리 · 원글 문장 그대로</span>
-      <ol>${ar.map((x) => `<li>${esc(firstSentence(x.p.body))} <a href="#community" data-openpost="${x.p.id}">— ${esc(x.p.author)}</a></li>`).join('')}</ol>
+      <ol>${ar.map((x) => `<li>${esc(x.quote || firstSentence(x.p.body))} <a href="#community" data-openpost="${x.p.id}">— ${esc(x.p.author)}</a></li>`).join('')}</ol>
       <div class="small muted">원글에 없는 내용은 덧붙이지 않았어요. 농약·안전 관련 내용은 공식 자료로 다시 확인하세요.</div></div>`
       : `<div class="summary">관련 노하우를 찾지 못했어요. <button class="btn sm" id="askPost">질문 글로 올리기</button></div>`) : ''}
   </div>
@@ -662,8 +665,11 @@ function bindCommunity(root) {
   });
   const doAsk = async () => {
     cm.ask = $('#askIn', root).value.trim(); if (!cm.ask) return;
-    const api = await tryApi('/api/community/ask', { question: cm.ask });
-    cm.askResult = api && api.items ? api.items : related(cm.ask);
+    const tips = S.posts.filter((p) => p.type === 'tip' && !S.hidden.includes(p.id));
+    const api = await tryApi('/api/community/ask', { question: cm.ask, posts: tips.map(({ id, title, body }) => ({ id, title, body })) }, 60000);
+    cm.askResult = api && Array.isArray(api.items)
+      ? api.items.map((it) => ({ p: tips.find((p) => p.id === it.id), quote: it.quote, agent: true })).filter((x) => x.p)
+      : related(cm.ask);
     render();
   };
   $('#askBtn', root).onclick = doAsk;

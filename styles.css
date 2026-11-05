@@ -1,6 +1,6 @@
 :root{
   --bg:#fbeee2; --bg2:#fdf5ee; --card:#ffffff; --cream:#fffaf5; --ink:#3a2f2f; --muted:#7a6e6a; --line:#efe2d6;
-  --green:#566b45; --green-deep:#4d6440; --green-soft:#e1e6d6; --leaf:#8fa676;
+  --green:#566b45; --green-deep:#566b45; --green-soft:#e1e6d6; --leaf:#8fa676;
   --plum:#7a3d4a; --peach:#f3c6a3; --peach-soft:#fbe4d3; --orange:#e8894a;
   --warn:#b4632b; --warn-soft:#fbe4d3; --danger:#b33a3a; --danger-soft:#f8e1df; --info:#566b45; --info-soft:#e7ecdf;
   --radius:28px; --radius-sm:16px; --shadow:0 1px 2px rgba(80,50,30,.04),0 10px 30px rgba(120,80,50,.07);
@@ -55,7 +55,7 @@ h3{font-size:17px;margin:0 0 6px;font-weight:800}
 .col .card{margin-bottom:0}
 .card.tight{padding:18px 20px;border-radius:22px}
 .card.big{padding:clamp(22px,3.2vw,42px)}
-.card.dark{background:var(--green);color:#fff;border-color:transparent}
+.card.dark{background:var(--green-deep);color:#fff;border-color:transparent}
 .card.dark .kicker{color:#e9eedc}
 .card.dark a{color:#fff}
 .kicker{font-size:15px;font-weight:800;color:var(--plum);margin:0 0 6px}

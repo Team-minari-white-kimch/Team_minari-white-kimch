@@ -91,6 +91,8 @@ async function initState() {
   };
   save();
 }
+const hasTask = (title, date) => S.tasks.some((t) => !t.done && t.title === title && t.date === date);
+function addTask(t) { if (hasTask(t.title, t.date)) return false; S.tasks.push({ id: uid(), done: false, ...t }); return true; }
 const fieldName = (id) => (S.profile.fields.find((f) => f.id === id) || {}).name || id || '';
 const fieldCrop = (id) => (S.profile.fields.find((f) => f.id === id) || {}).crop || '';
 
@@ -254,10 +256,11 @@ function viewToday() {
       ${wxHtml}
       <div class="card big">
         <div class="card-head"><div class="grow"><p class="kicker">다음에 할 일</p><div class="card-title" style="font-size:clamp(20px,2.2vw,28px)">기록이 작업 계획으로</div></div><div class="badge-ic g" aria-hidden="true">${I('calendar', 26)}</div></div>
-        <ol class="tl">
+        <ol class="tl">${pending.length ? pending.slice(0, 3).map((x, i) => `
+          <li><span class="n">${i + 1}</span><div><b>${esc(x.title)}</b><span>${x.date === t ? '오늘' : md(x.date) + '(' + dow(x.date) + ')'}${x.from ? ' · ' + esc(x.from) : ''}</span></div></li>`).join('') : `
           <li><span class="n">1</span><div><b>사진으로 상태 확인</b><span>지금 · 확인할 점 정리</span></div></li>
           <li><span class="n">2</span><div><b>영농 기록 저장</b><span>사용자가 저장을 승인</span></div></li>
-          <li><span class="n">3</span><div><b>밭 점검 일정 추가</b><span>필요한 작업만 선택</span></div></li>
+          <li><span class="n">3</span><div><b>밭 점검 일정 추가</b><span>필요한 작업만 선택</span></div></li>`}
         </ol>
         <a href="#log">내 영농 기록 보기 ${I('arrow', 16)}</a>
       </div>
@@ -271,7 +274,7 @@ function viewToday() {
       <div class="ic" aria-hidden="true">${I(a.icon, 22)}</div>
       <div class="grow"><b>${esc(a.title)}</b><div class="why">근거: ${esc(a.why)}</div>
         <div class="row wrap-it" style="margin-top:8px">
-          ${a.task ? `<button class="btn sm" data-addtask="${i}">일정에 추가 (${md(a.task.date)})</button>` : ''}
+          ${a.task ? (hasTask(a.task.title, a.task.date) ? `<span class="tag ok">${I('check', 14)} 일정에 추가됨 (${md(a.task.date)})</span>` : `<button class="btn sm" data-addtask="${i}">일정에 추가 (${md(a.task.date)})</button>`) : ''}
           ${a.link ? `<a class="btn sm ghost" href="${a.link}">사진 진단</a>` : ''}
         </div></div>
     </div>`).join('') : '<div class="empty">지금은 특별히 챙길 일이 없어요.</div>'}
@@ -296,8 +299,8 @@ function bindToday(root) {
   const adv = buildAdvice();
   root.querySelectorAll('[data-addtask]').forEach((b) => b.onclick = () => {
     const a = adv[+b.dataset.addtask];
-    S.tasks.push({ id: uid(), title: a.task.title, date: a.task.date, from: '날씨 안내', done: false }); save();
-    toast('일정에 추가했어요'); render();
+    const added = addTask({ title: a.task.title, date: a.task.date, from: '날씨 안내' }); save();
+    toast(added ? '일정에 추가했어요' : '이미 일정에 있어요'); render();
   });
   root.querySelectorAll('[data-done]').forEach((c) => c.onchange = () => {
     const x = S.tasks.find((t) => t.id === c.dataset.done); x.done = true; save(); toast('완료했어요'); render();
@@ -440,7 +443,7 @@ function bindDiagnose(root) {
     S.logs.push({ id: uid(), date: todayStr(), fieldId: field?.id, work: '증상 관찰', hours: 0.2,
       note: r.hard ? '사진 진단: 판단 어려움' : `사진 진단(AI 추정): ${r.top.map((c) => `${c.p.name}(${c.conf})`).join(', ')}`,
       photo: dx.keepPhoto ? dx.photo : null });
-    if (!r.hard) S.tasks.push({ id: uid(), title: `${r.top[0].p.name} 확산 여부 다시 확인`, date: addDays(todayStr(), 3), from: '사진 진단', done: false });
+    if (!r.hard) addTask({ title: `${r.top[0].p.name} 확산 여부 다시 확인`, date: addDays(todayStr(), 3), from: '사진 진단' });
     save(); toast('영농 기록에 남겼어요'); dx.result = null; dx.photo = null; dx.stats = null; dx.picked.clear(); location.hash = '#log';
   };
 }
@@ -500,7 +503,7 @@ function bindLog(root) {
     const log = { id: uid(), date: $('#lgDate', root).value || todayStr(), fieldId: $('#lgField', root).value, work, hours: +$('#lgHours', root).value || 0, note: maskPersonal($('#lgNote', root).value.trim()) };
     S.logs.push(log); save(); logSuggest = nextSuggestion(log); toast('기록을 저장했어요'); render();
   };
-  const y = $('#sgYes', root); if (y) y.onclick = () => { S.tasks.push({ id: uid(), ...logSuggest, from: '기록 제안', done: false }); logSuggest = null; save(); toast('일정에 추가했어요'); render(); };
+  const y = $('#sgYes', root); if (y) y.onclick = () => { addTask({ ...logSuggest, from: '기록 제안' }); logSuggest = null; save(); toast('일정에 추가했어요'); render(); };
   const n = $('#sgNo', root); if (n) n.onclick = () => { logSuggest = null; render(); };
   root.querySelectorAll('[data-done]').forEach((c) => c.onchange = () => { S.tasks.find((t) => t.id === c.dataset.done).done = c.checked; save(); render(); });
   root.querySelectorAll('[data-del]').forEach((b) => b.onclick = () => { if (confirm('이 일정을 지울까요?')) { S.tasks = S.tasks.filter((t) => t.id !== b.dataset.del); save(); render(); } });
@@ -555,8 +558,8 @@ function bindMachine(root) {
   $('#rvSave', root).onclick = () => {
     const o = $('#rvOffice', root).value, m = $('#rvMachine', root).value.trim() || '농기계', f = $('#rvFrom', root).value, t = $('#rvTo', root).value;
     if (!f || !t || t < f) { toast('날짜를 확인해 주세요'); return; }
-    S.tasks.push({ id: uid(), title: `${m} 대여 (${o})`, date: f, from: '농기계 임대', done: false });
-    S.tasks.push({ id: uid(), title: `${m} 반납 (${o})`, date: t, from: '농기계 임대', done: false });
+    addTask({ title: `${m} 대여 (${o})`, date: f, from: '농기계 임대' });
+    addTask({ title: `${m} 반납 (${o})`, date: t, from: '농기계 임대' });
     S.logs.push({ id: uid(), date: todayStr(), fieldId: S.profile.fields[0]?.id, work: '농기계 사용', hours: 0, note: `${o} ${m} 예약 ${md(f)}~${md(t)}` });
     save(); toast('대여·반납 일정을 추가했어요'); render();
   };

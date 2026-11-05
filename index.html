@@ -3,23 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>새내기 농부 비서</title>
+<title>미나리 농가 코파일럿</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;800&display=swap">
 <meta name="description" content="청도 새내기 농부를 위한 사진 진단, 날씨 기반 관리, 영농 기록·일정, 농기계 임대, 선배 농부 커뮤니티">
-<meta name="theme-color" content="#2f7d4f">
+<meta name="theme-color" content="#566b45">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <header class="top">
   <div class="wrap">
-    <svg class="logo" viewBox="0 0 40 40" aria-hidden="true">
-      <rect width="40" height="40" rx="11" fill="#2f7d4f"/>
-      <path d="M20 31c-6 0-9-4-9-9 0-6 4-11 9-13 5 2 9 7 9 13 0 5-3 9-9 9z" fill="#f6f4ee"/>
-      <path d="M20 12v18M20 18l-4-3M20 23l4-3" stroke="#8cbf5a" stroke-width="2" stroke-linecap="round" fill="none"/>
-    </svg>
-    <div class="brand">새내기 농부 비서<small>팀 미나리 백김치 · 청도</small></div>
+    <div class="logo" aria-hidden="true">밭</div>
+    <div class="brand">미나리<small>청도 농가 코파일럿</small></div>
     <span class="spacer"></span>
-    <span class="pill" id="srcPill">불러오는 중</span>
-    <button class="btn sm ghost" id="reset" title="시연 데이터 초기화" aria-label="시연 데이터 초기화">↺</button>
+    <div class="profile" title="시연 프로필"><span class="av" aria-hidden="true">감</span><div><b>감나무 농가</b><span>시연 프로필</span></div></div>
+    <button class="iconbtn" id="reset" title="시연 데이터 초기화" aria-label="시연 데이터 초기화"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M19.5 4.5v4.2h-4.2"/></svg></button>
   </div>
 </header>
 <main class="wrap" id="view" aria-live="polite"></main>
